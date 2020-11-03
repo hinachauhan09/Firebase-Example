@@ -72,8 +72,10 @@
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:padding="8dp"
+        android:layout_margin="8dp"
         android:src="@drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/design_default_color_error" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

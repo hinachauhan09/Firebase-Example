@@ -3,6 +3,8 @@ package example.firebaseexample;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText email,pass;
     private FirebaseAuth mAuth;
     SharedPreferences sharedPreferences;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                 //same as !TextUtils.isEmpty(email.getText()) email.getText().length()!=0
                 if(!TextUtils.isEmpty(email.getText().toString()) && !TextUtils.isEmpty(pass.getText().toString())){
 
+                    dialog = ProgressDialog.show(LoginActivity.this, "Login",
+                            "Logging You In. Please wait...", true);
                     mAuth.signInWithEmailAndPassword(email.getText().toString(),pass.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -99,12 +104,14 @@ public class LoginActivity extends AppCompatActivity {
                                                     editor.putString(child.getKey(),child.getValue(String.class));
                                                 }
                                                 editor.commit();
+                                               dialog.dismiss();
                                                 Intent i = new Intent(LoginActivity.this,HomeActivity.class);
                                                 startActivity(i);
                                             }
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                                                dialog.dismiss();
                                             }
                                         });
 
@@ -115,6 +122,8 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.w("user", "signInWithEmail:failure", task.getException());
                                         Toast.makeText(LoginActivity.this, "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
+
+                                        dialog.dismiss();
                                     }
                                 }
                             });

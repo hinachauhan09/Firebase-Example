@@ -7,8 +7,8 @@
 3. Firebase Realtime Database (To store user data)
 
 ## Functionality Includes :
-a. Login
-b. Registration
-c. Home with list of users
-d. Logout
-e. Forgot or Reset Password
+1. Login
+2. Registration
+3. Home with list of users
+4. Logout
+5. Forgot or Reset Password
